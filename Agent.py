@@ -51,7 +51,6 @@ class agent(nn.Module):
         self.lr = lr
         self.tau = tau
         self.delta = delta
-        print(self.delta)
         self.cost = cost
         self.K = K
         self.epsilon = 0.0

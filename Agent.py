@@ -149,7 +149,6 @@ class agent(nn.Module):
         return reward
 
     def step(self, action, confidences):
-        print(self.delta)
         assert action.shape[0] == confidences.shape[0]
         assert 0 <= self.delta < 1
 

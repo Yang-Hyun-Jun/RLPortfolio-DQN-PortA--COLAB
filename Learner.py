@@ -49,7 +49,6 @@ class DQNLearner:
         self.tau = tau
         self.cost = cost
         self.delta = delta
-        print(self.delta)
         self.K = K
         self.discount_factor = discount_factor
         self.min_trading_price = min_trading_price

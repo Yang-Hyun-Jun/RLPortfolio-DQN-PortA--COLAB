@@ -34,6 +34,14 @@ class agent(nn.Module):
 
         super().__init__()
 
+        agent.ACTIONS = list(product(range(1, 6), repeat=K))
+        agent.ACTIONS = torch.tensor(agent.ACTIONS).float().view(-1, K)
+        cash_bias = torch.ones(size=(agent.ACTIONS.shape[0], 1)) * 3.0
+        agent.ACTIONS = torch.cat([cash_bias, agent.ACTIONS], dim=-1)
+        agent.ACTIONS = torch.softmax(agent.ACTIONS, dim=-1).numpy()
+        agent.NUM_ASSETS = K
+        agent.NUM_ACTIONS = agent.ACTIONS.shape[0]
+
         self.environment = environment
         self.min_trading_price = min_trading_price
         self.max_trading_price = max_trading_price
@@ -43,6 +51,7 @@ class agent(nn.Module):
         self.lr = lr
         self.tau = tau
         self.delta = delta
+        print(self.delta)
         self.cost = cost
         self.K = K
         self.epsilon = 0.0
@@ -62,14 +71,6 @@ class agent(nn.Module):
         self.initial_balance = 0.0
         self.balance = 0.0
         self.profitloss = np.array([0] * self.K) #종목별 수익률
-
-        agent.ACTIONS = list(product(range(1, 6), repeat=K))
-        agent.ACTIONS = torch.tensor(agent.ACTIONS).float().view(-1, K)
-        cash_bias = torch.ones(size=(agent.ACTIONS.shape[0], 1)) * 3.0
-        agent.ACTIONS = torch.cat([cash_bias, agent.ACTIONS], dim=-1)
-        agent.ACTIONS = torch.softmax(agent.ACTIONS, dim=-1).numpy()
-        agent.NUM_ASSETS = K
-        agent.NUM_ACTIONS = agent.ACTIONS.shape[0]
 
     def set_balance(self, balance):
         self.initial_balance = balance

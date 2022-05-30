@@ -111,9 +111,9 @@ class DQNLearner:
                 self.agent.epsilon = self.EPS_END + (self.EPS_START - self.EPS_END) * np.exp(-1.*steps_done/self.EPS_DECAY)
                 self.agent.epsilon = 0
 
-                index, trading, confidences = \
-                    self.agent.get_trading(torch.tensor(state1, device=device).float().view(1, self.K, -1),
-                                           torch.tensor(state2, device=device).float().view(1, self.K+1))
+                index, action, trading, confidences = \
+                    self.agent.get_action(torch.tensor(state1, device=device).float().view(1, self.K, -1),
+                                          torch.tensor(state2, device=device).float().view(1, self.K+1))
 
                 m_action, next_state1, next_state2, reward, done = self.agent.step(trading, confidences)
                 steps_done += 1
@@ -121,7 +121,7 @@ class DQNLearner:
                 experience = (torch.tensor(state1, device=device).float().view(1, self.K, -1),
                               torch.tensor(state2, device=device).float().view(1, self.K+1),
                               torch.tensor(index, device=device).view(1, -1),
-                              torch.tensor(m_action, device=device).view(1, -1),
+                              torch.tensor(action, device=device).view(1, -1),
                               torch.tensor(reward, device=device).float().view(1, -1),
                               torch.tensor(next_state1, device=device).float().view(1, self.K, -1),
                               torch.tensor(next_state2, device=device).float().view(1, self.K+1),
@@ -144,8 +144,9 @@ class DQNLearner:
                     np.set_printoptions(precision=4, suppress=True)
                     print(f"episode:{episode}")
                     print(f"price:{self.environment.get_price()}")
+                    print(f"action:{action.reshape(1,-1)}")
                     print(f"trading:{trading.reshape(1,-1)}")
-                    print(f"maction:{m_action.reshape(1,-1)}")
+                    print(f"mtrading:{m_action.reshape(1,-1)}")
                     print(f"stocks:{stocks}")
                     print(f"portfolio:{p}")
                     print(f"portfolio value:{pv}")

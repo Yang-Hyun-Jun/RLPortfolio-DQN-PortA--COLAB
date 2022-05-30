@@ -82,7 +82,7 @@ class agent(nn.Module):
         self.portfolio_value = self.initial_balance
         self.profitloss = 0
 
-    def get_trading(self, state1, state2):
+    def get_action(self, state1, state2):
         with torch.no_grad():
             self.qnet.eval()
             self.q_value = self.qnet(state1, state2).cpu()
@@ -100,7 +100,7 @@ class agent(nn.Module):
             action = agent.ACTIONS[index].copy().reshape(-1, self.K+1)
             trading = (action[0] - self.portfolio)[1:]
             confidence = abs(trading)
-        return index, trading, confidence
+        return index, action, trading, confidence
 
     def decide_trading_unit(self, confidence, price):
         trading_price = self.portfolio_value * confidence

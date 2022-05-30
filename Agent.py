@@ -34,9 +34,9 @@ class agent(nn.Module):
 
         super().__init__()
 
-        agent.ACTIONS = list(product(range(1, 11), repeat=K))
+        agent.ACTIONS = list(product(range(1, 6), repeat=K))
         agent.ACTIONS = torch.tensor(agent.ACTIONS).float().view(-1, K)
-        cash_bias = torch.ones(size=(agent.ACTIONS.shape[0], 1)) * 7.0
+        cash_bias = torch.ones(size=(agent.ACTIONS.shape[0], 1)) * 4.5
         agent.ACTIONS = torch.cat([cash_bias, agent.ACTIONS], dim=-1)
         agent.ACTIONS = torch.softmax(agent.ACTIONS, dim=-1).numpy()
         agent.NUM_ASSETS = K

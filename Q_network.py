@@ -47,7 +47,7 @@ class Qnet(nn.Module):
         # output_dim * K + state2_dim
         self.layer1 = nn.Linear(1 * K + 1+K, 128)
         self.layer2 = nn.Linear(128, 64)
-        self.layer3 = nn.Linear(64, 10**K)
+        self.layer3 = nn.Linear(64, 5**K)
         self.hidden_act = nn.ReLU()
 
         nn.init.kaiming_normal_(self.layer1.weight, nonlinearity="relu")

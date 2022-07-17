@@ -9,7 +9,7 @@ from Agent import agent
 from Q_network import Score
 from Q_network import Qnet
 
-seed = 1
+seed = 2
 
 #넘파이 랜덤 시드 고정
 np.random.seed(seed)

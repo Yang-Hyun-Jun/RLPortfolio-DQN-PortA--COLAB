@@ -1,6 +1,6 @@
 import random
 
-seed = 1
+seed = 2
 random.seed(seed)
 
 

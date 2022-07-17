@@ -2,7 +2,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 
-seed = 1
+seed = 2
 #넘파이 랜덤 시드 고정
 np.random.seed(seed)
 #파이토치 랜덤 시드 고정

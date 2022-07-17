@@ -4,7 +4,7 @@ import numpy as np
 
 from itertools import product
 
-seed = 1
+seed = 2
 
 #넘파이 랜덤 시드 고정
 np.random.seed(seed)

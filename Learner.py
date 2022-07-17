@@ -9,7 +9,7 @@ from Q_network import Score
 from Q_network import Qnet
 from Metrics import Metrics
 
-seed = 1
+seed = 2
 #넘파이 랜덤 시드 고정
 np.random.seed(seed)
 #파이토치 랜덤 시드 고정
